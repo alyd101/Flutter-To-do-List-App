@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
 import 'package:todo_app/providers/todo_provider.dart';
 
+import '../components/show_toast.dart';
+
 class TodoPage extends StatelessWidget {
   final Todo todo;
   const TodoPage({super.key, required this.todo});
@@ -24,20 +26,39 @@ class TodoPage extends StatelessWidget {
           title: const Text("Delete task"),
           content: const Text("Are you sure you want to delete this task?"),
           actions: [
-            InkWell(
-              onTap: () {
-                provider.toggleToBeDeleted(todo);
-                closePage();
-                closePage();
-              },
-              child: const Text("Yes"),
+            
+
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 18,
+                right: 15,
+              ),
+              child: InkWell(
+                onTap: () {
+                  provider.toggleToBeDeleted(todo);
+                  closePage();
+                  closePage();
+                  // Add Toast here to show that the task has been deleted
+                  showToast("Task deleted");
+                },
+                child: const Text("Yes"),
+              ),
             ),
-            const Padding(padding: EdgeInsets.only(right: 15)),
-            InkWell(
-              onTap: () {
-                closePage();
-              },
-              child: const Text("No"),
+
+           // Add a padding to the "No" button to make it look better
+
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 18,
+                left: 15,
+                right: 22,
+              ),
+              child: InkWell(
+                onTap: () {
+                  closePage();
+                },
+                child: const Text("No"),
+              ),
             ),
           ],
         ),
